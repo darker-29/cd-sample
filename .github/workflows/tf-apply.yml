@@ -31,7 +31,6 @@ jobs:
     - name: Build Lambda function
       run: |
         cd lambda
-        npm ci
         npm run build
 
     - name: Configure AWS credentials for Lambroll
