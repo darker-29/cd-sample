@@ -46,21 +46,3 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.lambda_role.name
 }
-
-# Lambda関数
-resource "aws_lambda_function" "sample_function" {
-  function_name = "sample-function"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "index.handler"
-  runtime       = "nodejs20.x"
-  filename      = "lambda/lambda_function.zip"
-
-  # Lambda関数のコード変更はlambrollで管理するため、Terraformでは無視
-  lifecycle {
-    ignore_changes = [
-      source_code_hash,
-      last_modified,
-      filename
-    ]
-  }
-}
