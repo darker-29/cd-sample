@@ -21,6 +21,30 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: 'lambda/package-lock.json'
+
+    - name: Build Lambda function
+      run: |
+        cd lambda
+        npm ci
+        npm run build
+
+    - name: Configure AWS credentials for Lambroll
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/LambrollAccess
+        aws-region: ap-northeast-1
+
+    - name: Deploy Lambda with lambroll
+      uses: fujiwara/lambroll@v1
+      with:
+        working-directory: lambda
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
@@ -34,15 +58,6 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-
-    - name: Create initial Lambda ZIP file for Terraform
-      run: |
-        mkdir -p lambda
-        cp lambda/src/index.js lambda/index.js
-        cd lambda && zip lambda_function.zip index.js && rm index.js
-
-    - name: Terraform Plan
-      run: terraform plan -input=false
 
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
