@@ -37,10 +37,15 @@ jobs:
         role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/LambrollAcess
         aws-region: ap-northeast-1
 
-    - name: Deploy Lambda with lambroll
+    - name: install Lambroll
       uses: fujiwara/lambroll@v1
       with:
-        working-directory: lambda
+        version: v1.3.0
+
+    - name: Lambroll deploy
+      run: lambroll deploy
+      working-directory: lambda
+
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
