@@ -20,5 +20,5 @@ provider "aws" {
 
 # サンプルS3バケット
 resource "aws_s3_bucket" "sandbox1" {
-  bucket = "ditto-sandbox1-test"
+  bucket = "ditto-sandbox1-testbucket"
 }
