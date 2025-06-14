@@ -1,0 +1,12 @@
+{
+  "name": "sample-lambda",
+  "version": "1.0.0",
+  "description": "Sample Lambda function",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "mkdir -p build && cp src/index.js build/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -46,6 +46,12 @@ jobs:
       id: validate
       run: terraform validate -no-color
 
+    - name: Create initial Lambda ZIP file for Terraform
+      run: |
+        mkdir -p lambda
+        cp lambda/src/index.js lambda/index.js
+        cd lambda && zip lambda_function.zip index.js && rm index.js
+
     - name: Terraform Plan
       id: plan
       run: terraform plan -no-color -input=false
