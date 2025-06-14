@@ -1,11 +1,8 @@
 {
   "FunctionName": "sample-function",
   "Runtime": "nodejs20.x",
-  "Handler": "index.handler",
+  "Handler": "dist/index.handler",
   "Role": "arn:aws:iam::211125579131:role/sample-lambda-role",
-  "Code": {
-    "ZipFile": "build/"
-  },
   "Timeout": 30,
   "MemorySize": 128,
   "Environment": {
