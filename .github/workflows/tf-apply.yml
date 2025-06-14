@@ -34,7 +34,7 @@ jobs:
     - name: Configure AWS credentials for Lambroll
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/LambrollAccess
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/LambrollAcess
         aws-region: ap-northeast-1
 
     - name: Deploy Lambda with lambroll
